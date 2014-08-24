@@ -7,7 +7,7 @@
 
 
 ##1. SCRIPT DESIGN -- HOW THE SCRIPT WORKS?
-***
+
 
 
 ####1.1 Loading labels, creating list of labels of data to be extracted (tidylabels) and creating descriptive activity names
@@ -73,7 +73,7 @@ After the data for each of the 66 relevant measurements is sub grouped by activi
 ---
  
 ##2. CODE BOOK
-***
+
 ###2.1 Information attached to the raw data: (files: README.txt and features_info.txt on unzipped folder: ./UCI HAR Dataset/)
 
 ####2.1.1 Human Activity Recognition Using Smartphones Dataset (file: README.txt)
@@ -83,7 +83,7 @@ Version 1.0
 
 Jorge L. Reyes-Ortiz, Davide Anguita, Alessandro Ghio, Luca Oneto.
 Smartlab - Non Linear Complex Systems Laboratory
-DITEN - Universit‡ degli Studi di Genova.
+DITEN - Universit√† degli Studi di Genova.
 Via Opera Pia 11A, I-16145, Genoa, Italy.
 activityrecognition@smartlab.ws
 www.smartlab.ws
