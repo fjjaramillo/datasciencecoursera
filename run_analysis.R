@@ -20,17 +20,19 @@
 #              R 3.1.1
 #              RStudio 0.98.994
 #
-# Caveats:     THE CURRENT SYSTEM RAN OUT OF MEMORY TO RUN THIS PROGRAM FOR ALL THE DATA.
-#              A LIMITER OF ROWS (n) WAS ADDED TO THE PROGRAM.
-#              THE PROGRAM RUNS OK IN THE CURRENT SYSTEM WITH A LIMIT OF ROWS OF n=100,
-#              PRODUCING A SAMPLE TIDY DATA TABLE OF 528 ROWS.
-#              IN A MORE POWERFUL SYSTEM THIS PROGRAM IS EXPECTED TO BE CAPABLE OF RUNNING 
-#              FOR THE WHOLE RAW DATA COMPOSED OF 2947 ROWS ON THE TEST DATA TABLE
-#              AND 7352 ROWS OF TRAIN DATA TABLE.
-#
 #
 # Student:     Francisco Jaramillo 
+#---------------------------------------------------------------------------------------------------
+#2014.08.24 - FJ - Updated program replacing read.fwf by read.table. 
+#                   Read table use significantly less RAM and the performance improved many times.
+#2014.08.22 - FJ - Created program
+#
 #===================================================================================================
+
+
+
+
+
 
 run_analysis <- function() 
 {
@@ -61,7 +63,7 @@ run_analysis <- function()
 
 #    rm(list=ls())
 
-n<-100
+
 
 actlab <- data.table(activnum=1:6,activ=c("Walking","Walking Upstairs","Walking Downstairs"
                                           ,"Sitting","Standing","Laying"))
@@ -162,19 +164,19 @@ tidylabels <- cbind(tidylabels,variablenames )
 
 extractset <- c(tidylabels$number)
 
-testrawdata <- read.fwf("./UCI HAR Dataset/test/x_test.txt"
-                        , header=FALSE,widths=rep(c(16),each=561),col.names=(datalab[,2]),  n=n)
+testrawdata <- read.table("./UCI HAR Dataset/test/x_test.txt")
+colnames(testrawdata) <- datalab[,2]
 testdata <- testrawdata[,tidylabels$number[]]
-testsubj <- read.table("./UCI HAR Dataset/test/subject_test.txt",col.names=c("subject"), nrows=n)
-testact <- read.table("./UCI HAR Dataset/test/y_test.txt",col.names=c("activnum"), nrows=n)
+testsubj <- read.table("./UCI HAR Dataset/test/subject_test.txt",col.names=c("subject"))
+testact <- read.table("./UCI HAR Dataset/test/y_test.txt",col.names=c("activnum"))
 testdata <- cbind(testdata,testsubj,testact )
 testdata <- merge(testdata,actlab,by.x="activnum",by.y="activnum",all=FALSE)
 
-trainrawdata <- read.fwf("./UCI HAR Dataset/train/x_train.txt"
-                         , header=FALSE,widths=rep(c(16),each=561),col.names=(datalab[,2]), n=n)
+trainrawdata <- read.table("./UCI HAR Dataset/train/x_train.txt")
+colnames(trainrawdata) <- datalab[,2]
 traindata <- trainrawdata[,tidylabels$number[]]
-trainsubj <- read.table("./UCI HAR Dataset/train/subject_train.txt",col.names=c("subject"), nrows=n)
-trainact <- read.table("./UCI HAR Dataset/train/y_train.txt",col.names=c("activnum"), nrows=n)
+trainsubj <- read.table("./UCI HAR Dataset/train/subject_train.txt",col.names=c("subject"))
+trainact <- read.table("./UCI HAR Dataset/train/y_train.txt",col.names=c("activnum"))
 traindata <- cbind(traindata,trainsubj,trainact )
 traindata <- merge(traindata,actlab,by.x="activnum",by.y="activnum",all=FALSE)
 
@@ -463,8 +465,9 @@ tidydata <- rbind(tidydata,cbind(Variable=c(
             , summarize,Mean = mean(TransformedBodyBodyGyroscopeJerkMagnitudeStandardDeviation))))
 
 
-#    write.table(tidydata, file = "C:/Users/Francisco/GIT/datasciencecoursera/tidydata.txt", row.name=FALSE)
+    write.table(tidydata, file = "./tidydata.txt", row.name=FALSE)
 
-print(tidydata)
+#print(head(tidydata))
+#print(dim(tidydata))
 
 }

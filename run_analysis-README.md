@@ -8,10 +8,8 @@
 
 ##1. SCRIPT DESIGN -- HOW THE SCRIPT WORKS?
 ***
-Because of CPU limitations this program starts by declaring a limit of rows to upload from every one of the raw data tables (n<- 100). The program  can be updated to run for the whole raw data just by making n <- -1.
 
 
-***
 ####1.1 Loading labels, creating list of labels of data to be extracted (tidylabels) and creating descriptive activity names
 
 Descriptive activity labels are created on **actlab (names in bold correspond to objects)** by assigning a description to every activity code.
@@ -41,7 +39,7 @@ The relevant measurements are identified on **tidylabels** by detecting all the 
 "Subjects" data is loaded on **testsubj** and **trainsubj**
 
 
-All the raw data (allowed by the row limiter "n") is loaded into **testdata** and **traindata**
+All the raw data is loaded into **testdata** and **traindata**
 
 
 Only measurements identified on **extractset** are kept
@@ -65,7 +63,7 @@ Then, those results are combined to the variable label using cbing.
 Finally, all that tidydata-row-set (variable-activity-subject-mean) is combined as rows to the **tidydata** data frame using rbind.
 
 
-After the data for each of the 66 relevant measurements is sub grouped by activities and subjects, the means are calculated, and is all combined by rows; the **tidydata** table is complete and ready to print.  
+After the data for each of the 66 relevant measurements is sub grouped by activities and subjects, the means are calculated, and is all combined by rows; the **tidydata** table is complete and saved to tidydata.txt in the working directory.  
 
 
 
@@ -293,7 +291,7 @@ In order to meet this requirement, the description of variables of the "Human Ac
 
 Trying to find accurate descriptive variable names for such a particular and specialized measurements; that were also short enough to make the Tidy Data easily readable is quite a challenge.     
 
-In order to satisfy the requirements of the project, descriptiveness has prevailed over name size and tidy data readability.   
+In order to satisfy the requirements of the project, descriptiveness has prevailed over name size.   
 
 Just for reference, the lists created to select the descriptive names will follow:
 
